@@ -6,13 +6,60 @@
 <title>Riconferme FantaTaxo</title>
 <link href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.2.5/dist/css/tabulator.min.css" rel="stylesheet">
 <style>
-  /* ... (stili invariati) ... */
+  :root {
+    --bg: #0b1020;
+    --card: #121a33;
+    --text: #e8ecff;
+    --muted: #9fb0ff;
+    --accent: #7aa2ff;
+    --chip: #1a2447;
+    --chip-text: #cfe0ff;
+    --reconfirm-bg: #0a3d2a33;
+    --reconfirm-border: #2bd48a;
+  }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial; background: linear-gradient(180deg, var(--bg), #0d1530); color: var(--text); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
+  header { display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+  h1 { font-size: 1.4rem; margin: 0; }
+  .controls { display:flex; gap:8px; flex-wrap:wrap; width:100%; margin-top: 8px; }
+  .controls select, .controls input { background: var(--card); border: 1px solid #243058; color: var(--text); padding: 10px 12px; border-radius: 12px; outline:none; min-width:150px; }
+  .controls button { background: var(--accent); border: none; color: #0a0f20; padding: 10px 14px; border-radius: 12px; font-weight: 700; }
+  #legend { margin-top: 10px; }
+  .legend-chip { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius: 10px; background: var(--card); border:1px solid #1a2447; font-size: 0.95rem; }
+  .legend-color { width:14px; height:14px; border-radius:4px; background: var(--reconfirm-bg); border: 2px solid var(--reconfirm-border); }
+  #table { background: var(--card); border-radius:16px; overflow:hidden; border:1px solid #1a2447; margin-top: 12px; }
+  .tabulator { background: transparent; }
+  .tabulator-row.reconfirm { background: var(--reconfirm-bg); border-left: 3px solid var(--reconfirm-border); }
+  .footer { opacity:.7; font-size:.85rem; padding:12px 0; }
+  .col-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
+  .col-toggle label { background: var(--card); border:1px solid #243058; padding:6px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:6px; }
+  @media (max-width: 600px) { .controls select { min-width: 120px; flex:1; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <!-- header, controls e legenda invariati -->
+  <header><h1>📊 Riconferme FantaTaxo</h1></header>
+  <header><h3>Vista l'aggiunta di nuovi team e il grado di competitività maggiore con 10 squadre, sarà accettata una sola riconferma per squadra per giocatori con cartellino non superiore a 5 crediti. Alle nuove squadre saranno attribuiti 15 crediti extra per sopperire al disequilibrio.</h3></header>
+
+  <section class="controls">
+    <select id="ownerFilter"><option value="">Tutti i proprietari</option></select>
+    <select id="ruoloFilter"><option value="">Tutti i ruoli</option><option value="A">A</option><option value="C">C</option><option value="D">D</option><option value="P">P</option></select>
+    <select id="teamFilter"><option value="">Tutte le squadre (club)</option><option value="ATA">ATA</option><option value="BOL">BOL</option><option value="CAG">CAG</option><option value="COM">COM</option><option value="EMP">EMP</option><option value="FIO">FIO</option><option value="GEN">GEN</option><option value="INT">INT</option><option value="JUV">JUV</option><option value="LAZ">LAZ</option><option value="LEC">LEC</option><option value="MIL">MIL</option><option value="MON">MON</option><option value="NAP">NAP</option><option value="PAR">PAR</option><option value="ROM">ROM</option><option value="TOR">TOR</option><option value="UDI">UDI</option><option value="VEN">VEN</option><option value="VER">VER</option></select>
+    <input id="searchBox" type="search" placeholder="Cerca nome giocatore…" />
+    <button id="resetBtn">Reset filtri</button>
+  </section>
+
+  <div id="legend">
+    <span class="legend-chip">
+      <span class="legend-color"></span>
+      Evidenziati = Prezzo d'asta ≤ 5 <b>e non Portieri</b> ⇒ potenziale <b>riconferma</b> (a 2× il prezzo d'asta)
+    </span>
+  </div>
+
+  <div class="col-toggle" id="colToggles"></div>
+
   <div id="table"></div>
+
   <p class="footer">Suggerimenti: tocca le intestazioni per ordinare • Trascina le colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
 </div>
 
@@ -75,6 +122,15 @@ const ruoloFilter = document.getElementById("ruoloFilter");
 const teamFilter = document.getElementById("teamFilter");
 const searchBox = document.getElementById("searchBox");
 const resetBtn = document.getElementById("resetBtn");
+
+// Popola dinamicamente i proprietari
+const owners = [...new Set(data.map(d => d.Squadra))].sort();
+owners.forEach(o => {
+  const opt = document.createElement("option");
+  opt.value = o;
+  opt.textContent = o;
+  ownerFilter.appendChild(opt);
+});
 
 function applyFilters() {
   let filters = [];

@@ -53,7 +53,7 @@
   <div id="legend">
     <span class="legend-chip">
       <span class="legend-color"></span>
-      Evidenziati = Prezzo d'asta ≤ 10 <b>e non Portieri</b> ⇒ potenziale <b>riconferma</b> (a 2× il prezzo d'asta)
+      Evidenziati = Prezzo d'asta ≤ 5 <b>e non Portieri</b> ⇒ potenziale <b>riconferma</b> (a 2× il prezzo d'asta)
     </span>
   </div>
 
@@ -79,7 +79,7 @@ const columns = [
   { key:"Quot", title: "Quot.", field: "Quotazione", hozAlign:"right", widthGrow: 1, visible: false },
   { key:"QuotM", title: "Quot. Mantra", field: "Quotazione_Mantra", hozAlign:"right", widthGrow: 1, visible: false },
   { key:"Riconferma", title: "Riconferma (2×)", field: "Prezzo", hozAlign:"right", widthGrow: 1,
-    formatter:(cell)=>{ const d = cell.getRow().getData(); const v = Number(d.Prezzo); return (v<=10 && d.Ruolo!=="P") ? fmt0(v*2) : "—"; }, visible: true },
+    formatter:(cell)=>{ const d = cell.getRow().getData(); const v = Number(d.Prezzo); return (v<=5 && d.Ruolo!=="P") ? fmt0(v*2) : "—"; }, visible: true },
   { key:"ID", title: "ID", field: "Fantacalcio_Id", visible:false }
 ];
 
@@ -92,7 +92,7 @@ let table = new Tabulator("#table", {
   columns: columns,
   rowFormatter: function(row){
     const d = row.getData();
-    const isReconfirm = Number(d.Prezzo) <= 10 && d.Ruolo !== "P";
+    const isReconfirm = Number(d.Prezzo) <= 5 && d.Ruolo !== "P";
     row.getElement().classList.toggle("reconfirm", isReconfirm);
   }
 });

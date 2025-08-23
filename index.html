@@ -10,28 +10,25 @@
     --bg: #0b1020;
     --card: #121a33;
     --text: #e8ecff;
-    --muted: #9fb0ff;
     --accent: #7aa2ff;
-    --chip: #1a2447;
-    --chip-text: #cfe0ff;
     --reconfirm-bg: #0a3d2a33;
     --reconfirm-border: #2bd48a;
   }
   body { margin:0; font-family: system-ui, sans-serif; background: linear-gradient(180deg, var(--bg), #0d1530); color: var(--text); }
   .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
-
-  #home { position: relative; z-index: 5; text-align:center; }
-  #app { position: relative; z-index: 1; display:none; }
-
-  h1, h2 { margin: 0 0 12px 0; text-align:center; }
-  button { background: var(--accent); border: none; color: #0a0f20; padding: 10px 18px; margin: 10px; border-radius: 12px; font-weight: 700; cursor:pointer; }
+  h1 { text-align:center; margin-bottom: 16px; }
+  .tabs { text-align:center; margin-bottom: 20px; }
+  .tabs button {
+    background: var(--card); color: var(--text); border:1px solid #243058;
+    padding:10px 16px; margin: 0 4px; border-radius: 10px; cursor:pointer; font-weight:600;
+  }
+  .tabs button.active { background: var(--accent); color:#0a0f20; }
   .controls { display:flex; gap:8px; flex-wrap:wrap; width:100%; margin: 12px 0; }
   .controls select, .controls input { background: var(--card); border: 1px solid #243058; color: var(--text); padding: 8px 12px; border-radius: 12px; min-width:150px; }
   #legend { margin: 10px 0; }
   .legend-chip { display:inline-flex; align-items:center; gap:8px; padding:8px 10px; border-radius: 10px; background: var(--card); border:1px solid #1a2447; font-size: 0.95rem; }
   .legend-color { width:14px; height:14px; border-radius:4px; background: var(--reconfirm-bg); border: 2px solid var(--reconfirm-border); }
   #table { background: var(--card); border-radius:16px; overflow:hidden; border:1px solid #1a2447; margin-top: 12px; }
-  .tabulator { background: transparent; }
   .tabulator-row.reconfirm { background: var(--reconfirm-bg); border-left: 3px solid var(--reconfirm-border); }
   .footer { opacity:.7; font-size:.85rem; padding:12px 0; }
   .col-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
@@ -40,41 +37,33 @@
 </head>
 <body>
 <div class="wrap">
-  <!-- Home -->
-  <div id="home">
-    <h1>Scegli il fantacalcio</h1>
-    <div class="home-buttons">
-      <button onclick="loadFantasy('taxo')">FantaTaxo 25/26</button>
-      <button onclick="loadFantasy('ralph')">Ralphcalcio 25/26</button>
-    </div>
+  <h1>📊 Gestione Fantacalcio 25/26</h1>
+  <div class="tabs">
+    <button data-fanta="taxo" class="active">FantaTaxo 25/26</button>
+    <button data-fanta="ralph">Ralphcalcio 25/26</button>
   </div>
 
-  <!-- App -->
-  <div id="app">
-    <h2 id="fantasyTitle"></h2>
-    <p id="introText"></p>
+  <h2 id="fantasyTitle"></h2>
+  <p id="introText"></p>
 
-    <section class="controls">
-      <select id="ownerFilter"><option value="">Tutti i proprietari</option></select>
-      <select id="ruoloFilter"><option value="">Tutti i ruoli</option><option value="A">A</option><option value="C">C</option><option value="D">D</option><option value="P">P</option></select>
-      <select id="teamFilter"><option value="">Tutti i club</option></select>
-      <input id="searchBox" type="search" placeholder="Cerca giocatore…" />
-      <button id="resetBtn">Reset</button>
-    </section>
+  <section class="controls">
+    <select id="ownerFilter"><option value="">Tutti i proprietari</option></select>
+    <select id="ruoloFilter"><option value="">Tutti i ruoli</option><option value="A">A</option><option value="C">C</option><option value="D">D</option><option value="P">P</option></select>
+    <select id="teamFilter"><option value="">Tutti i club</option></select>
+    <input id="searchBox" type="search" placeholder="Cerca giocatore…" />
+    <button id="resetBtn">Reset</button>
+  </section>
 
-    <div id="legend">
-      <span class="legend-chip">
-        <span class="legend-color"></span>
-        <span id="legendText"></span>
-      </span>
-    </div>
-
-    <div class="col-toggle" id="colToggles"></div>
-    <div id="table"></div>
-
-    <p class="footer">Suggerimenti: tocca le intestazioni per ordinare • Trascina le colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
-    <button onclick="showHome()">⬅ Torna alla scelta</button>
+  <div id="legend">
+    <span class="legend-chip">
+      <span class="legend-color"></span>
+      <span id="legendText"></span>
+    </span>
   </div>
+
+  <div class="col-toggle" id="colToggles"></div>
+  <div id="table"></div>
+  <p class="footer">Suggerimenti: tocca le intestazioni per ordinare • Trascina le colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.2.5/dist/js/tabulator.min.js"></script>
@@ -102,16 +91,8 @@ const configs = {
 let table;
 let currentConfig;
 
-window.showHome = function() {
-  document.getElementById("home").style.display = "block";
-  document.getElementById("app").style.display = "none";
-  if (table) { table.destroy(); table = null; }
-};
-
-window.loadFantasy = function(key) {
+function loadFantasy(key) {
   currentConfig = configs[key];
-  document.getElementById("home").style.display = "none";
-  document.getElementById("app").style.display = "block";
   document.getElementById("fantasyTitle").textContent = currentConfig.name;
   document.getElementById("introText").textContent = currentConfig.intro;
   document.getElementById("legendText").innerHTML =
@@ -156,7 +137,6 @@ window.loadFantasy = function(key) {
     const label = document.createElement("label");
     const input = document.createElement("input");
     input.type = "checkbox";
-    input.id = id;
     input.checked = !!col.visible;
     input.addEventListener("change", () => {
       (input.checked ? table.showColumn(col.field) : table.hideColumn(col.field));
@@ -208,7 +188,19 @@ window.loadFantasy = function(key) {
     searchBox.value = "";
     table.clearFilter(true);
   };
-};
+}
+
+// Inizializza con la prima tab (taxo)
+loadFantasy('taxo');
+
+// Gestione click tab
+document.querySelectorAll(".tabs button").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    loadFantasy(btn.dataset.fanta);
+  });
+});
 </script>
 </body>
 </html>

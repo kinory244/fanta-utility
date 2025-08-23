@@ -1,0 +1,293 @@
+Squadra,Nome,Squadra_Appartenenza,Ruolo,Ruoli_Mantra,Prezzo,Quotazione,Quotazione_Mantra,Fantacalcio_Id
+"Gianluca","DI GREGORIO","JUV","P","Por",78,18,18,5876
+"Gianluca","CORVI","PAR","P","Por",1,1,1,6662
+"Gianluca","CASALE","BOL","D","Dc",1,8,8,5498
+"Gianluca","BUONGIORNO","NAP","D","Dc",33,16,16,2724
+"Gianluca","PALACIOS T.","INT","D","Dc",3,3,3,6874
+"Gianluca","BEUKEMA","BOL","D","Dc",3,7,7,6202
+"Gianluca","BASCHIROTTO","LEC","D","Dc,Dd",3,8,9,5835
+"Gianluca","VOGLIACCO","GEN","D","Dc,Dd",1,5,5,6245
+"Gianluca","ZAPPA","CAG","D","B,Dd,E",1,6,7,4461
+"Gianluca","CAMBIASO","JUV","D","Ds,Dd,E",17,10,11,5520
+"Gianluca","GALLO","LEC","D","Ds,E",1,5,5,4502
+"Gianluca","DODO'","FIO","D","Dd,E",11,9,9,5885
+"Gianluca","EDERSON D.S.","ATA","C","M,C",32,15,18,5792
+"Gianluca","GILMOUR","NAP","C","M,C",60,7,8,5131
+"Gianluca","ROVELLA","LAZ","C","M,C",3,7,7,4459
+"Gianluca","HERNANI","PAR","C","C",1,6,4,4423
+"Gianluca","FERGUSON","BOL","C","C,T",9,17,17,5858
+"Gianluca","FRATTESI","INT","C","C,T",16,18,17,2848
+"Gianluca","FAGIOLI","JUV","C","C,T",1,10,9,4465
+"Gianluca","OUDIN","LEC","C","W,T",1,6,6,6061
+"Gianluca","NGONGE","NAP","A","W,A",1,9,10,6145
+"Gianluca","VLASIC","TOR","C","T",1,14,13,5687
+"Gianluca","BALDANZI","ROM","C","T,A",1,9,9,5823
+"Gianluca","SCAMACCA","ATA","A","Pc",3,27,26,2137
+"Gianluca","COLOMBO","EMP","A","Pc",2,13,12,4923
+"Gianluca","LUCCA","UDI","A","Pc",5,14,14,6215
+"Gianluca","SOLBAKKEN","EMP","A","A",1,4,4,6119
+"Gianluca","KVARATSKHELIA","NAP","A","A",129,30,31,5839
+"Gianluca","GUDMUNDSSON A.","FIO","A","A",42,26,27,5800
+"Vincenzo","RYAN","ROM","P","Por",60,1,1,5384
+"Vincenzo","REINA","COM","P","Por",1,2,2,387
+"Vincenzo","BANI","GEN","D","Dc",1,7,7,2285
+"Vincenzo","DJIMSITI","ATA","D","Dc",1,8,8,787
+"Vincenzo","BASTONI","INT","D","Dc",26,16,16,2120
+"Vincenzo","LUCUMI'","BOL","D","Dc",6,6,6,6042
+"Vincenzo","MAGNANI","VER","D","Dc",2,4,4,2769
+"Vincenzo","MASINA","TOR","D","B,Ds,E",1,6,7,49
+"Vincenzo","CABAL","JUV","D","B,Ds,E",4,6,7,6039
+"Vincenzo","DARMIAN","INT","D","B,Dd,E",11,9,10,2525
+"Vincenzo","VALERI","PAR","D","Ds,E",5,7,7,5862
+"Vincenzo","HERNANDEZ T.","MIL","D","Ds,E",28,20,20,4292
+"Vincenzo","HOLM","BOL","D","Dd,E",2,8,8,5678
+"Vincenzo","MAZZOCCHI","NAP","D","E",10,4,4,5481
+"Vincenzo","ADLI","FIO","C","M,C",1,4,6,5875
+"Vincenzo","MORO N.","BOL","C","M,C",1,3,3,6054
+"Vincenzo","LOBOTKA","NAP","C","M,C",12,9,10,4287
+"Vincenzo","PAYERO","UDI","C","C",1,8,7,6481
+"Vincenzo","FAZZINI","EMP","C","C,T",3,5,5,6010
+"Vincenzo","AEBISCHER","BOL","C","C,T",2,10,10,5784
+"Vincenzo","TCHAOUNA","LAZ","C","W",1,9,9,5919
+"Vincenzo","SUSLOV","VER","C","W,T",16,13,13,6486
+"Vincenzo","SOULE'","ROM","A","W,A",62,19,21,5734
+"Vincenzo","CANCELLIERI","PAR","A","W,A",7,6,6,5500
+"Vincenzo","KOOPMEINERS","JUV","C","T",73,28,27,5685
+"Vincenzo","THURAM","INT","A","Pc",126,32,31,4871
+"Vincenzo","MOSQUERA","VER","A","Pc",1,10,9,6630
+"Vincenzo","BENEDYCZAK","PAR","A","A",1,9,9,6667
+"Valentino","OKOYE","UDI","P","Por",2,8,8,6462
+"Valentino","CRAGNO","MON","P","Por",1,1,1,2178
+"Valentino","PAVLOVIC","MIL","D","Dc",12,10,10,5022
+"Valentino","PAVARD","INT","D","Dc,Dd",26,14,15,4177
+"Valentino","KOSSOUNOU","ATA","D","Dc,Dd",9,10,10,5578
+"Valentino","DI LORENZO","NAP","D","B,Dd,E",46,18,20,2816
+"Valentino","SABELLI","GEN","D","Ds,Dd,E",1,7,8,791
+"Valentino","BIRINDELLI","MON","D","Ds,Dd,E",1,5,5,5838
+"Valentino","NORTON-CUFFY","GEN","D","Dd,E",1,4,4,6814
+"Valentino","SPINAZZOLA","NAP","D","E",3,13,12,1852
+"Valentino","DUMFRIES","INT","D","E",5,16,15,5513
+"Valentino","SOSA B.","TOR","D","E",3,7,6,6820
+"Valentino","THURAM K.","JUV","C","M,C",41,10,12,5562
+"Valentino","KONE' M.","ROM","C","M,C",1,8,9,5589
+"Valentino","RICHARDSON","FIO","C","M,C",2,8,8,6804
+"Valentino","ZAMBO ANGUISSA","NAP","C","M,C",10,10,11,4220
+"Valentino","BARELLA","INT","C","C",55,21,20,1870
+"Valentino","PELLEGRINI LO.","ROM","C","C,T",89,21,21,530
+"Valentino","MIRETTI","GEN","C","C,T",1,4,4,5813
+"Valentino","ZIELINSKI","INT","C","C,T",8,10,10,152
+"Valentino","DELE-BASHIRU","LAZ","C","C,T",3,6,6,6629
+"Valentino","NDOYE","BOL","C","W",3,10,9,5564
+"Valentino","ANJORIN","EMP","C","W,T",1,2,2,6889
+"Valentino","SAMARDZIC","ATA","C","T",11,17,16,5119
+"Valentino","ZANIOLO","ATA","C","T,A",3,12,11,2766
+"Valentino","DIA","LAZ","A","Pc",6,15,14,5672
+"Valentino","ABRAHAM","MIL","A","Pc",3,12,12,2544
+"Valentino","DALLINGA","BOL","A","Pc",5,21,20,6643
+"Valentino","GONZALEZ N.","JUV","A","A",25,24,25,4179
+"Valentino","DE KETELAERE","ATA","A","A",24,21,21,5995
+"Nicola-Dab","CAPRILE","NAP","P","Por",77,2,2,4360
+"Nicola-Dab","LEALI","GEN","P","Por",5,1,1,188
+"Nicola-Dab","MARIPAN","TOR","D","Dc",3,7,7,4665
+"Nicola-Dab","MINA","CAG","D","Dc",3,8,8,4210
+"Nicola-Dab","CIRCATI","PAR","D","Dc",1,6,6,6663
+"Nicola-Dab","BISSECK","INT","D","Dc",3,4,4,6217
+"Nicola-Dab","HIEN","ATA","D","Dc",4,8,8,6046
+"Nicola-Dab","POSCH","BOL","D","Dc,Dd",19,8,9,6066
+"Nicola-Dab","OLIVERA","NAP","D","B,Ds,E",27,7,8,5840
+"Nicola-Dab","RUGGERI","ATA","D","E",17,12,11,5354
+"Nicola-Dab","CARLOS AUGUSTO","INT","D","E",3,9,8,5877
+"Nicola-Dab","SERGI ROBERTO","COM","D","E,M",5,9,9,4284
+"Nicola-Dab","MCTOMINAY","NAP","C","M,C",32,16,19,4777
+"Nicola-Dab","BUSIO","VEN","C","C",1,6,6,5507
+"Nicola-Dab","GUENDOUZI","LAZ","C","C",12,10,9,4186
+"Nicola-Dab","FOLORUNSHO","NAP","C","C,T",1,6,6,6252
+"Nicola-Dab","FABBIAN","BOL","C","C,T",28,13,13,6206
+"Nicola-Dab","EKKELENKAMP","UDI","C","C,T",1,7,7,6684
+"Nicola-Dab","SAELEMAEKERS","ROM","C","W",6,5,5,4892
+"Nicola-Dab","CONCEICAO","JUV","C","W,A",1,11,10,6884
+"Nicola-Dab","CHUKWUEZE","MIL","C","W,A",2,10,9,4856
+"Nicola-Dab","MARCHWINSKI","LEC","C","T",2,7,6,6645
+"Nicola-Dab","GAETANO","CAG","C","T",1,8,7,4364
+"Nicola-Dab","PAZ N.","COM","C","T,A",1,7,6,6875
+"Nicola-Dab","TAREMI","INT","A","Pc",26,16,15,6628
+"Nicola-Dab","RETEGUI","ATA","A","Pc",100,23,22,6228
+"Nicola-Dab","POHJANPALO","VEN","A","Pc",11,15,14,5079
+"Nicola-Dab","ZAPATA D.","TOR","A","Pc",52,26,26,608
+"Gaetano","FRUCHTL","LEC","P","Por",1,1,1,2401
+"Gaetano","TORRIANI","MIL","P","Por",51,1,1,6813
+"Gaetano","PONGRACIC","FIO","D","Dc",2,8,8,5603
+"Gaetano","RRAHMANI","NAP","D","Dc",6,11,11,4409
+"Gaetano","VARANE","COM","D","Dc",1,8,8,2602
+"Gaetano","GILA","LAZ","D","Dc",1,4,4,5833
+"Gaetano","GASPAR K.","LEC","D","Dc",1,3,3,6632
+"Gaetano","DOSSENA","COM","D","Dc",1,8,8,6230
+"Gaetano","VASQUEZ","GEN","D","Dc,Ds",3,9,10,5514
+"Gaetano","DELPRATO","PAR","D","B,Dd,E",1,6,7,6664
+"Gaetano","FRESE","VER","D","Ds,E",1,5,5,6639
+"Gaetano","GOSENS","FIO","D","E",27,13,12,2160
+"Gaetano","LAZARO","TOR","D","E",1,5,5,4385
+"Gaetano","VECINO","LAZ","C","M,C",3,7,8,181
+"Gaetano","EL AZZOUZI","BOL","C","M,C",1,4,4,6225
+"Gaetano","PESSINA","MON","C","M,C",11,11,12,2741
+"Gaetano","LOVRIC","UDI","C","C",1,10,10,5850
+"Gaetano","DUNCAN","VEN","C","C",1,8,8,526
+"Gaetano","SOHM","PAR","C","C",1,6,5,5319
+"Gaetano","LE FEE","ROM","C","C,T",1,10,10,6299
+"Gaetano","EL SHAARAWY","ROM","C","W",1,7,6,795
+"Gaetano","ORSOLINI","BOL","C","W",43,21,21,2167
+"Gaetano","DA CUNHA","COM","C","W,T",9,12,12,5559
+"Gaetano","COLPANI","FIO","C","T",26,22,21,5878
+"Gaetano","CUTRONE","COM","A","Pc",1,10,9,2155
+"Gaetano","MARTINEZ L.","INT","A","Pc",186,39,40,2764
+"Gaetano","CASTRO S.","BOL","A","Pc",1,8,7,6572
+"Gaetano","DYBALA","ROM","A","A",70,33,34,309
+"Gaetano","ESPOSITO SE.","EMP","A","A",1,4,4,4463
+"Checco-Nicola","BAGNOLINI","BOL","P","Por",5,1,1,5822
+"Checco-Nicola","TERRACCIANO","FIO","P","Por",21,12,12,2815
+"Checco-Nicola","MARI'","MON","D","Dc",4,7,7,4904
+"Checco-Nicola","BREMER","JUV","D","Dc",35,16,16,2788
+"Checco-Nicola","N'DICKA","ROM","D","Dc",5,8,8,4317
+"Checco-Nicola","KALULU","JUV","D","Dc,Dd",3,4,4,4976
+"Checco-Nicola","BIRAGHI","FIO","D","B,Ds,E",7,8,9,252
+"Checco-Nicola","KOLASINAC","ATA","D","B,Ds,E",8,8,9,2640
+"Checco-Nicola","VOJVODA","TOR","D","B,Dd,E",9,7,8,4994
+"Checco-Nicola","KAYODE","FIO","D","Ds,Dd,E",10,5,6,6235
+"Checco-Nicola","ZORTEA","CAG","D","Ds,Dd,E",8,6,7,4433
+"Checco-Nicola","DORGU","LEC","D","Ds,E",10,8,8,6257
+"Checco-Nicola","ANGELINO","ROM","D","Ds,E",4,9,9,4772
+"Checco-Nicola","CIURRIA","MON","C","E,W",1,4,6,5880
+"Checco-Nicola","DE ROON","ATA","C","M,C",5,8,9,22
+"Checco-Nicola","LOCATELLI","JUV","C","M,C",6,9,10,827
+"Checco-Nicola","PRATI","CAG","C","M,C",5,4,5,6424
+"Checco-Nicola","NICOLUSSI CAVIGLIA","VEN","C","M,C",1,2,2,4349
+"Checco-Nicola","FOFANA Y.","MIL","C","M,C",22,7,8,4686
+"Checco-Nicola","REIJNDERS","MIL","C","C",24,12,11,6224
+"Checco-Nicola","ILIC","TOR","C","C",1,9,9,5007
+"Checco-Nicola","GYASI","EMP","C","W",1,7,7,4992
+"Checco-Nicola","STREFEZZA","COM","C","W",11,12,11,4486
+"Checco-Nicola","ORISTANIO","VEN","C","W,T,A",18,8,9,6218
+"Checco-Nicola","KEAN","FIO","A","Pc",16,20,20,2097
+"Checco-Nicola","DOVBYK","ROM","A","Pc",67,30,30,6675
+"Checco-Nicola","LUKAKU","NAP","A","Pc",185,33,33,2531
+"Checco-Nicola","RASPADORI","NAP","A","A",1,10,11,4371
+"Checco-Nicola","BELTRAN L.","FIO","A","A",1,10,10,6409
+"Checco-Nicola","MBANGULA","JUV","A","A",1,5,5,6833
+"Gigi","RUI PATRICIO","ATA","P","Por",25,1,1,4270
+"Gigi","VASQUEZ D.","EMP","P","Por",1,6,6,6125
+"Gigi","OSORIO","PAR","D","Dc",1,4,4,5327
+"Gigi","MARIN R.","NAP","D","Dc",2,7,7,6638
+"Gigi","GATTI","JUV","D","Dc",31,8,8,5831
+"Gigi","JUAN JESUS","NAP","D","Dc,Ds",1,4,4,256
+"Gigi","CALDIROLA","MON","D","Dc,Ds",1,5,5,4958
+"Gigi","DE WINTER","GEN","D","Dc,Dd",1,6,6,5739
+"Gigi","DANILO","JUV","D","B,Ds,Dd",12,13,15,4237
+"Gigi","MARTIN","GEN","D","Ds,E",1,5,5,2593
+"Gigi","STOJANOVIC",,"D","Dd,E",1,4,4,null
+"Gigi","CANDELA","VEN","D","Dd,E",1,5,5,4458
+"Gigi","POBEGA","BOL","C","M,C",1,2,3,5298
+"Gigi","BRESCIANINI","ATA","C","M,C",20,7,8,4947
+"Gigi","MANDRAGORA","FIO","C","M,C",2,7,8,1933
+"Gigi","MAKOUMBOU","CAG","C","M,C",1,4,4,6232
+"Gigi","DOUGLAS LUIZ","JUV","C","C",39,20,19,4911
+"Gigi","MESSIAS","GEN","C","C,W",10,10,10,4970
+"Gigi","CASTROVILLI","LAZ","C","C,T",1,9,9,4377
+"Gigi","MALINOVSKYI","GEN","C","C,T",25,11,11,4427
+"Gigi","ZACCAGNI","LAZ","C","W,A",87,27,26,632
+"Gigi","ALMQVIST","PAR","A","W,A",5,10,11,6207
+"Gigi","SIMEONE","NAP","A","Pc",1,12,11,2061
+"Gigi","DAVIS K.","UDI","A","Pc",1,6,4,5637
+"Gigi","PINAMONTI","GEN","A","Pc",9,19,18,2038
+"Gigi","CASTELLANOS","LAZ","A","Pc",74,22,22,6226
+"Gigi","LOOKMAN","ATA","A","A",61,27,28,4730
+"Gigi","MOTA","MON","A","A",1,9,9,5882
+"Gigi","YILDIZ","JUV","A","A",48,16,17,6434
+"Gigi","OKAFOR","MIL","A","A",4,12,12,6227
+"Tenue","SOMMER","INT","P","Por",70,19,19,2428
+"Tenue","SCUFFET","CAG","P","Por",1,8,8,574
+"Tenue","GIANNETTI L.","UDI","D","Dc",5,6,6,6533
+"Tenue","TOMORI","MIL","D","Dc",8,13,13,4751
+"Tenue","ERLIC","BOL","D","Dc",3,7,7,4982
+"Tenue","DE VRIJ","INT","D","Dc",1,7,7,322
+"Tenue","DAWIDOWICZ","VER","D","Dc",3,5,5,4493
+"Tenue","ISMAJLI","EMP","D","Dc",2,7,7,5010
+"Tenue","EMERSON ROYAL","MIL","D","B,Ds,Dd",9,11,11,4816
+"Tenue","KAMARA H.","UDI","D","Ds,E",1,5,5,5555
+"Tenue","ZEMURA","UDI","D","Ds,E",1,3,3,6211
+"Tenue","CALABRIA","MIL","D","Dd,E",2,6,6,357
+"Tenue","IOVINE","COM","D","Dd,E",1,3,3,6654
+"Tenue","BADELJ","GEN","C","M,C",1,7,7,170
+"Tenue","CALHANOGLU","INT","C","M,C",71,28,30,2194
+"Tenue","RAMADANI","LEC","C","M,C",2,5,6,6394
+"Tenue","DEIOLA","CAG","C","M,C",1,4,5,1871
+"Tenue","PASALIC","ATA","C","C,T",34,14,14,2077
+"Tenue","ZURKOWSKI","EMP","C","C,T",2,9,9,4376
+"Tenue","POLITANO","NAP","C","W",13,23,22,536
+"Tenue","WEAH","JUV","C","W",3,7,6,4662
+"Tenue","HARROUI","VER","C","W,T",3,13,13,5688
+"Tenue","ISAKSEN","LAZ","A","W,A",2,12,13,6398
+"Tenue","NERES","NAP","C","W,A",47,20,19,6831
+"Tenue","PULISIC","MIL","C","T,A",77,30,29,2423
+"Tenue","MORATA","MIL","A","Pc",80,26,26,313
+"Tenue","BONNY","PAR","A","Pc",6,9,8,6669
+"Tenue","VITINHA O.","GEN","A","Pc",9,12,11,6164
+"Tenue","NOSLIN","LAZ","A","A",11,16,16,6556
+"Tenue","THAUVIN","UDI","A","A",9,11,11,2369
+"Guglielmo","MANDAS","LAZ","P","Por",45,1,1,6482
+"Guglielmo","PERILLI","VER","P","Por",1,1,1,511
+"Guglielmo","ROMAGNOLI","LAZ","D","Dc",13,10,10,460
+"Guglielmo","COPPOLA D.","VER","D","Dc",3,4,4,5764
+"Guglielmo","LUPERTO","CAG","D","Dc",12,9,9,393
+"Guglielmo","KRISTENSEN T.","UDI","D","Dc",6,4,4,6485
+"Guglielmo","COCO","TOR","D","Dc",16,8,8,6642
+"Guglielmo","MARTINEZ QUARTA","FIO","D","Dc",25,10,10,5323
+"Guglielmo","ZAMPANO","VEN","D","Ds,Dd,E",3,5,6,1952
+"Guglielmo","MORENO ALB.","COM","D","Ds,E",13,6,6,5435
+"Guglielmo","EHIZIBUE","UDI","D","Dd,E",5,6,6,6047
+"Guglielmo","BELLANOVA","ATA","D","E",27,13,12,4887
+"Guglielmo","ZAPPACOSTA","ATA","D","E",18,10,9,554
+"Guglielmo","ZERBIN","NAP","C","E,W",3,2,2,5998
+"Guglielmo","LINETTY","TOR","C","M,C",2,4,4,2008
+"Guglielmo","PAREDES","ROM","C","M,C",27,6,7,468
+"Guglielmo","RICCI S.","TOR","C","M,C",7,8,9,5453
+"Guglielmo","FREULER","BOL","C","M,C",11,10,11,788
+"Guglielmo","MKHITARYAN","INT","C","C",26,15,14,2529
+"Guglielmo","BERNABE'","PAR","C","C,T",23,14,14,6666
+"Guglielmo","ILING JUNIOR","BOL","C","W",5,6,6,6112
+"Guglielmo","KARLSSON","BOL","C","W,A",5,7,6,6459
+"Guglielmo","MAN","PAR","C","W,A",54,21,20,5393
+"Guglielmo","MALDINI","MON","C","T,A",5,9,8,4896
+"Guglielmo","DJURIC","MON","A","Pc",1,11,11,5471
+"Guglielmo","KRSTOVIC","LEC","A","Pc",7,16,15,6435
+"Guglielmo","PICCOLI","CAG","A","Pc",10,14,13,4359
+"Guglielmo","BELOTTI","COM","A","Pc",19,16,15,441
+"Guglielmo","LUVUMBO","CAG","A","A",3,12,12,5297
+"Guglielmo","ADAMS C.","TOR","A","A",35,16,16,6646
+"Pier-MT","MILINKOVIC-SAVIC V.","TOR","P","Por",21,12,12,2170
+"Pier-MT","JORONEN","VEN","P","Por",1,7,7,4425
+"Pier-MT","VITI","EMP","D","Dc",1,6,6,5718
+"Pier-MT","BIJOL","UDI","D","Dc",14,9,9,5847
+"Pier-MT","MANCINI","ROM","D","Dc",19,11,11,2296
+"Pier-MT","IZZO","MON","D","Dc",1,6,6,226
+"Pier-MT","BALOGH","PAR","D","Dc",1,3,3,5353
+"Pier-MT","ACERBI","INT","D","Dc",3,10,10,513
+"Pier-MT","RANIERI L.","FIO","D","Dc,Ds",3,7,7,4378
+"Pier-MT","PATRIC","LAZ","D","Dc,Dd",1,5,5,327
+"Pier-MT","LYKOGIANNIS","BOL","D","Ds,E",1,5,5,2653
+"Pier-MT","ZANOLI","GEN","D","Dd,E",1,7,7,5527
+"Pier-MT","DIMARCO","INT","D","E",50,24,23,254
+"Pier-MT","FRENDRUP","GEN","C","E,M",14,12,14,5791
+"Pier-MT","DUDA","VER","C","M,C",1,8,8,4342
+"Pier-MT","MAZZITELLI","COM","C","M,C",5,7,8,1976
+"Pier-MT","CRISTANTE","ROM","C","M,C",4,9,10,779
+"Pier-MT","GAGLIARDINI","MON","C","M,C",1,5,6,801
+"Pier-MT","LOFTUS-CHEEK","MIL","C","C,T",22,18,18,4199
+"Pier-MT","LIBERALI","MIL","C","W,T",1,1,1,6678
+"Pier-MT","MIHAILA","PAR","A","W,A",4,8,9,5322
+"Pier-MT","VLAHOVIC","JUV","A","Pc",189,38,39,2841
+"Pier-MT","MILIK","JUV","A","Pc",1,11,9,2012
+"Pier-MT","LAPADULA","CAG","A","Pc",1,9,8,1939
+"Pier-MT","REBIC","LEC","A","A",1,4,4,186
+"Pier-MT","LEAO","MIL","A","A",87,24,25,4510
+"Pier-MT","SANCHEZ","UDI","A","A",1,15,15,2475
+"Pier-MT","KOUAME'","FIO","A","A",1,4,4,2762

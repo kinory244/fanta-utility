@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Riconferme FantaTaxo</title>
+<title>Gestione Fantacalcio 25/26</title>
 <link href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.2.5/dist/css/tabulator.min.css" rel="stylesheet">
 <style>
   :root {
@@ -34,129 +34,239 @@
   .col-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
   .col-toggle label { background: var(--card); border:1px solid #243058; padding:6px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:6px; }
   @media (max-width: 600px) { .controls select { min-width: 120px; flex:1; } }
+
+  /* Home screen styling */
+  .home {
+    text-align: center;
+    margin-top: 60px;
+  }
+  .home-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .home-buttons button {
+    background: var(--accent);
+    border: none;
+    color: #0a0f20;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header><h1>📊 Riconferme FantaTaxo</h1></header>
-  <header><h3>Vista l'aggiunta di nuovi team e il grado di competitività maggiore con 10 squadre, sarà accettata una sola riconferma per squadra per giocatori con cartellino non superiore a 5 crediti. Alle nuove squadre saranno attribuiti 15 crediti extra per sopperire al disequilibrio.</h3></header>
-
-  <section class="controls">
-    <select id="ownerFilter"><option value="">Tutti i proprietari</option></select>
-    <select id="ruoloFilter"><option value="">Tutti i ruoli</option><option value="A">A</option><option value="C">C</option><option value="D">D</option><option value="P">P</option></select>
-    <select id="teamFilter"><option value="">Tutte le squadre (club)</option><option value="ATA">ATA</option><option value="BOL">BOL</option><option value="CAG">CAG</option><option value="COM">COM</option><option value="EMP">EMP</option><option value="FIO">FIO</option><option value="GEN">GEN</option><option value="INT">INT</option><option value="JUV">JUV</option><option value="LAZ">LAZ</option><option value="LEC">LEC</option><option value="MIL">MIL</option><option value="MON">MON</option><option value="NAP">NAP</option><option value="PAR">PAR</option><option value="ROM">ROM</option><option value="TOR">TOR</option><option value="UDI">UDI</option><option value="VEN">VEN</option><option value="VER">VER</option></select>
-    <input id="searchBox" type="search" placeholder="Cerca nome giocatore…" />
-    <button id="resetBtn">Reset filtri</button>
-  </section>
-
-  <div id="legend">
-    <span class="legend-chip">
-      <span class="legend-color"></span>
-      Evidenziati = Prezzo d'asta ≤ 5 <b>e non Portieri</b> ⇒ potenziale <b>riconferma</b> (a 2× il prezzo d'asta)
-    </span>
+  <!-- Home screen: allow the user to choose which fantasy league to view -->
+  <div id="home" class="home">
+    <h1>Scegli il fantacalcio</h1>
+    <div class="home-buttons">
+      <button id="selectTaxo">FantaTaxo&nbsp;25/26</button>
+      <button id="selectRalph">Ralphcalcio&nbsp;25/26</button>
+    </div>
   </div>
 
-  <div class="col-toggle" id="colToggles"></div>
+  <!-- Application interface: hidden until a fantasy is selected -->
+  <div id="app" style="display:none;">
+    <h1 id="fantasyTitle"></h1>
+    <p id="introText"></p>
+    <div id="legend">
+      <span class="legend-chip">
+        <span class="legend-color"></span>
+        <span id="legendText"></span>
+      </span>
+    </div>
 
-  <div id="table"></div>
+    <section class="controls">
+      <select id="ownerFilter"><option value="">Tutti i proprietari</option></select>
+      <select id="ruoloFilter"><option value="">Tutti i ruoli</option><option value="A">A</option><option value="C">C</option><option value="D">D</option><option value="P">P</option></select>
+      <select id="teamFilter"><option value="">Tutte le squadre (club)</option></select>
+      <input id="searchBox" type="search" placeholder="Cerca nome giocatore…" />
+      <button id="resetBtn">Reset filtri</button>
+    </section>
 
-  <p class="footer">Suggerimenti: tocca le intestazioni per ordinare • Trascina le colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
+    <div class="col-toggle" id="colToggles"></div>
+
+    <div id="table"></div>
+
+    <button id="backBtn" style="margin-top:12px;">Torna alla scelta</button>
+
+    <p class="footer">Suggerimenti: tocca le intestazioni per ordinare • Trascina le colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/tabulator-tables@6.2.5/dist/js/tabulator.min.js"></script>
 <script type="module">
-import data from './data.js';
+import dataTaxo from './data_taxo.js';
+import dataRalph from './data_ralph.js';
 
+// Utility formatter for numbers
 const fmt0 = (n) => new Intl.NumberFormat('it-IT', { maximumFractionDigits: 0 }).format(n);
 
-const columns = [
-  { key:"Squadra", title: "Proprietario", field: "Squadra", widthGrow: 1, visible: true },
-  { key:"Nome", title: "Nome", field: "Nome", widthGrow: 2, visible: true },
-  { key:"Club", title: "Club", field: "Squadra_Appartenenza", widthGrow: 1, visible: true },
-  { key:"Ruolo", title: "Ruolo", field: "Ruolo", widthGrow: 1, visible: false },
-  { key:"Ruoli_Mantra", title: "Ruoli Mantra", field: "Ruoli_Mantra", widthGrow: 1.2, visible: true },
-  { key:"Prezzo", title: "Prezzo", field: "Prezzo", hozAlign:"right", widthGrow: 1, formatter:(cell)=>fmt0(cell.getValue()), visible: true },
-  { key:"Quot", title: "Quot.", field: "Quotazione", hozAlign:"right", widthGrow: 1, visible: false },
-  { key:"QuotM", title: "Quot. Mantra", field: "Quotazione_Mantra", hozAlign:"right", widthGrow: 1, visible: false },
-  { key:"Riconferma", title: "Riconferma (2×)", field: "Prezzo", hozAlign:"right", widthGrow: 1,
-    formatter:(cell)=>{ const d = cell.getRow().getData(); const v = Number(d.Prezzo); return (v<=5 && d.Ruolo!=="P") ? fmt0(v*2) : "—"; }, visible: true },
-  { key:"ID", title: "ID", field: "Fantacalcio_Id", visible:false }
-];
-
-let table = new Tabulator("#table", {
-  data: data,
-  layout: "fitColumns",
-  responsiveLayout: "collapse",
-  movableColumns: true,
-  height: "75vh",
-  columns: columns,
-  rowFormatter: function(row){
-    const d = row.getData();
-    const isReconfirm = Number(d.Prezzo) <= 5 && d.Ruolo !== "P";
-    row.getElement().classList.toggle("reconfirm", isReconfirm);
+// Configuration for each fantasy league: name, dataset, reconfirm threshold and intro text
+const fantasyConfigs = {
+  taxo: {
+    name: "FantaTaxo 25/26",
+    data: dataTaxo,
+    reconfirmThreshold: 5,
+    intro: "In questa lega ogni squadra ha diritto a un massimo di due riconferme per giocatori con cartellino non superiore a 5 crediti (portieri esclusi)."
+  },
+  ralph: {
+    name: "Ralphcalcio 25/26",
+    data: dataRalph,
+    reconfirmThreshold: 10,
+    intro: "In questa lega ogni squadra ha diritto a un massimo di due riconferme per giocatori con cartellino non superiore a 10 crediti (portieri esclusi)."
   }
-});
+};
 
-// Column toggles
-const colToggles = document.getElementById("colToggles");
-columns.forEach(col => {
-  if (col.key === "ID") return;
-  const id = "chk_" + col.key;
-  const label = document.createElement("label");
-  const input = document.createElement("input");
-  input.type = "checkbox";
-  input.id = id;
-  input.checked = !!col.visible;
-  input.addEventListener("change", () => {
-    (input.checked ? table.showColumn(col.field) : table.hideColumn(col.field));
-  });
-  label.appendChild(input);
-  label.appendChild(document.createTextNode(" " + col.title));
-  colToggles.appendChild(label);
-});
-columns.forEach(col => { if (col.visible === false) table.hideColumn(col.field); });
+let table;          // reference to the current Tabulator instance
+let currentConfig;  // holds the active fantasy configuration
 
-// Filters
-const ownerFilter = document.getElementById("ownerFilter");
-const ruoloFilter = document.getElementById("ruoloFilter");
-const teamFilter = document.getElementById("teamFilter");
-const searchBox = document.getElementById("searchBox");
-const resetBtn = document.getElementById("resetBtn");
-
-// Popola dinamicamente i proprietari
-const owners = [...new Set(data.map(d => d.Squadra))].sort();
-owners.forEach(o => {
-  const opt = document.createElement("option");
-  opt.value = o;
-  opt.textContent = o;
-  ownerFilter.appendChild(opt);
-});
-
-function applyFilters() {
-  let filters = [];
-  if (ownerFilter.value) filters.push({ field:"Squadra", type:"=", value: ownerFilter.value });
-  if (ruoloFilter.value) filters.push({ field:"Ruolo", type:"=", value: ruoloFilter.value });
-  if (teamFilter.value) filters.push({ field:"Squadra_Appartenenza", type:"=", value: teamFilter.value });
-
-  table.clearFilter(true);
-  if (filters.length) table.setFilter(filters);
-  if (searchBox.value) {
-    const q = searchBox.value.toLowerCase();
-    table.addFilter((data) => (data.Nome || '').toLowerCase().includes(q));
+// Show the home screen and hide the application interface
+function showHome() {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("app").style.display = "none";
+  // Destroy existing table to free resources
+  if (table) {
+    table.destroy();
+    table = null;
   }
 }
 
-ownerFilter.addEventListener("change", applyFilters);
-ruoloFilter.addEventListener("change", applyFilters);
-teamFilter.addEventListener("change", applyFilters);
-searchBox.addEventListener("input", applyFilters);
-resetBtn.addEventListener("click", () => {
-  ownerFilter.value = "";
-  ruoloFilter.value = "";
-  teamFilter.value = "";
-  searchBox.value = "";
-  table.clearFilter(true);
-});
+// Load a selected fantasy league and build the table
+function loadFantasy(key) {
+  currentConfig = fantasyConfigs[key];
+  // Retrieve the data array directly from configuration
+  const data = currentConfig.data || [];
+  // Update the UI: switch to app view and set titles/intro
+  document.getElementById("home").style.display = "none";
+  document.getElementById("app").style.display = "block";
+  document.getElementById("fantasyTitle").textContent = currentConfig.name;
+  document.getElementById("introText").textContent = currentConfig.intro;
+  document.getElementById("legendText").innerHTML =
+    `Evidenziati = Prezzo d'asta ≤ ${currentConfig.reconfirmThreshold} <b>e non Portieri</b> ⇒ potenziale <b>riconferma</b> (a 2× il prezzo d'asta)`;
+  // Destroy any existing table before creating a new one
+  if (table) {
+    table.destroy();
+    table = null;
+  }
+  // Define table columns; visibility can be toggled by the user
+  const columns = [
+    { key:"Squadra", title: "Proprietario", field: "Squadra", widthGrow: 1, visible: true },
+    { key:"Nome", title: "Nome", field: "Nome", widthGrow: 2, visible: true },
+    { key:"Club", title: "Club", field: "Squadra_Appartenenza", widthGrow: 1, visible: true },
+    { key:"Ruolo", title: "Ruolo", field: "Ruolo", widthGrow: 1, visible: true },
+    { key:"Ruoli_Mantra", title: "Ruoli Mantra", field: "Ruoli_Mantra", widthGrow: 1.2, visible: true },
+    { key:"Prezzo", title: "Prezzo", field: "Prezzo", hozAlign:"right", widthGrow: 1, formatter:(cell)=>fmt0(cell.getValue()), visible: true },
+    { key:"Quot", title: "Quot.", field: "Quotazione", hozAlign:"right", widthGrow: 1, visible: false },
+    { key:"QuotM", title: "Quot. Mantra", field: "Quotazione_Mantra", hozAlign:"right", widthGrow: 1, visible: false },
+    { key:"Riconferma", title: "Riconferma (2×)", field: "Prezzo", hozAlign:"right", widthGrow: 1,
+      formatter:(cell) => {
+        const d = cell.getRow().getData();
+        const v = Number(d.Prezzo);
+        return (v <= currentConfig.reconfirmThreshold && d.Ruolo !== "P") ? fmt0(v * 2) : "—";
+      },
+      visible: true
+    },
+    { key:"ID", title: "ID", field: "Fantacalcio_Id", visible:false }
+  ];
+  // Create a new Tabulator instance
+  table = new Tabulator("#table", {
+    data: data,
+    layout: "fitColumns",
+    responsiveLayout: "collapse",
+    movableColumns: true,
+    height: "75vh",
+    columns: columns,
+    rowFormatter: function(row) {
+      const d = row.getData();
+      const isReconfirm = Number(d.Prezzo) <= currentConfig.reconfirmThreshold && d.Ruolo !== "P";
+      row.getElement().classList.toggle("reconfirm", isReconfirm);
+    }
+  });
+  // Build column toggles based on columns definition
+  const colTogglesEl = document.getElementById("colToggles");
+  colTogglesEl.innerHTML = "";
+  columns.forEach(col => {
+    if (col.key === "ID") return;
+    const id = "chk_" + col.key;
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.id = id;
+    input.checked = !!col.visible;
+    input.addEventListener("change", () => {
+      if (input.checked) {
+        table.showColumn(col.field);
+      } else {
+        table.hideColumn(col.field);
+      }
+    });
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(" " + col.title));
+    colTogglesEl.appendChild(label);
+  });
+  // Hide columns marked as not visible by default
+  columns.forEach(col => { if (col.visible === false) table.hideColumn(col.field); });
+  // Reference controls
+  const ownerFilter = document.getElementById("ownerFilter");
+  const ruoloFilter = document.getElementById("ruoloFilter");
+  const teamFilter = document.getElementById("teamFilter");
+  const searchBox = document.getElementById("searchBox");
+  const resetBtn = document.getElementById("resetBtn");
+  // Clear and repopulate dynamic select options
+  ownerFilter.innerHTML = "<option value=\"\">Tutti i proprietari</option>";
+  teamFilter.innerHTML = "<option value=\"\">Tutte le squadre (club)</option>";
+  const owners = [...new Set(data.map(d => d.Squadra))].sort();
+  owners.forEach(o => {
+    const opt = document.createElement("option");
+    opt.value = o;
+    opt.textContent = o;
+    ownerFilter.appendChild(opt);
+  });
+  const clubs = [...new Set(data.map(d => d.Squadra_Appartenenza))].sort();
+  clubs.forEach(c => {
+    const opt = document.createElement("option");
+    opt.value = c;
+    opt.textContent = c;
+    teamFilter.appendChild(opt);
+  });
+  // Filter application function
+  function applyFilters() {
+    let filters = [];
+    if (ownerFilter.value) filters.push({ field:"Squadra", type:"=", value: ownerFilter.value });
+    if (ruoloFilter.value) filters.push({ field:"Ruolo", type:"=", value: ruoloFilter.value });
+    if (teamFilter.value) filters.push({ field:"Squadra_Appartenenza", type:"=", value: teamFilter.value });
+    table.clearFilter(true);
+    if (filters.length) table.setFilter(filters);
+    if (searchBox.value) {
+      const q = searchBox.value.toLowerCase();
+      table.addFilter((data) => (data.Nome || '').toLowerCase().includes(q));
+    }
+  }
+  // Attach event listeners for filtering
+  ownerFilter.onchange = applyFilters;
+  ruoloFilter.onchange = applyFilters;
+  teamFilter.onchange = applyFilters;
+  searchBox.oninput = applyFilters;
+  resetBtn.onclick = () => {
+    ownerFilter.value = "";
+    ruoloFilter.value = "";
+    teamFilter.value = "";
+    searchBox.value = "";
+    table.clearFilter(true);
+  };
+}
+// Event bindings for selecting leagues and returning to home
+document.getElementById("selectTaxo").addEventListener("click", () => loadFantasy("taxo"));
+document.getElementById("selectRalph").addEventListener("click", () => loadFantasy("ralph"));
+document.getElementById("backBtn").addEventListener("click", showHome);
+// Initialise by showing the home screen
+showHome();
 </script>
 </body>
 </html>

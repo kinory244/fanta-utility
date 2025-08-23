@@ -19,7 +19,12 @@
   }
   body { margin:0; font-family: system-ui, sans-serif; background: linear-gradient(180deg, var(--bg), #0d1530); color: var(--text); }
   .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
-  h1, h2 { margin: 0 0 12px 0; }
+
+  /* Fix per pulsanti non cliccabili */
+  #home { position: relative; z-index: 5; }
+  #app { position: relative; z-index: 1; display:none; }
+
+  h1, h2 { margin: 0 0 12px 0; text-align:center; }
   button { background: var(--accent); border: none; color: #0a0f20; padding: 10px 18px; margin: 10px; border-radius: 12px; font-weight: 700; cursor:pointer; }
   .controls { display:flex; gap:8px; flex-wrap:wrap; width:100%; margin: 12px 0; }
   .controls select, .controls input { background: var(--card); border: 1px solid #243058; color: var(--text); padding: 8px 12px; border-radius: 12px; min-width:150px; }
@@ -38,13 +43,15 @@
 <div class="wrap">
   <!-- Home -->
   <div id="home">
-    <h1>📊 Seleziona il Fantacalcio</h1>
-    <button onclick="loadFantasy('taxo')">FantaTAXO 25/26</button>
-    <button onclick="loadFantasy('ralph')">Ralphcalcio 25/26</button>
+    <h1>Scegli il fantacalcio</h1>
+    <div class="home-buttons" style="text-align:center;">
+      <button onclick="loadFantasy('taxo')">FantaTaxo 25/26</button>
+      <button onclick="loadFantasy('ralph')">Ralphcalcio 25/26</button>
+    </div>
   </div>
 
   <!-- App -->
-  <div id="app" style="display:none;">
+  <div id="app">
     <h2 id="fantasyTitle"></h2>
     <p id="introText"></p>
 

@@ -1,4 +1,4 @@
-# 📊 Riconferme FantaTaxo
+# 📊 Riconferme Web Viewer
 
 Una web app statica per visualizzare e filtrare le rose del fantacalcio, con evidenziazione automatica dei giocatori potenzialmente **riconfermabili**.
 
@@ -12,7 +12,7 @@ Una web app statica per visualizzare e filtrare le rose del fantacalcio, con evi
   - Ricerca libera per nome
 - Possibilità di **mostrare/nascondere colonne** tramite toggle.
 - Evidenziazione automatica:
-  - Giocatori con **prezzo ≤ 5** crediti
+  - Giocatori con **prezzo ≤ X** crediti
   - Esclusi i portieri
   - Questi sono segnalati come possibili **riconferme** (al doppio del prezzo d’asta).
 

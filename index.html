@@ -20,8 +20,7 @@
   body { margin:0; font-family: system-ui, sans-serif; background: linear-gradient(180deg, var(--bg), #0d1530); color: var(--text); }
   .wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
 
-  /* Fix per pulsanti non cliccabili */
-  #home { position: relative; z-index: 5; }
+  #home { position: relative; z-index: 5; text-align:center; }
   #app { position: relative; z-index: 1; display:none; }
 
   h1, h2 { margin: 0 0 12px 0; text-align:center; }
@@ -44,7 +43,7 @@
   <!-- Home -->
   <div id="home">
     <h1>Scegli il fantacalcio</h1>
-    <div class="home-buttons" style="text-align:center;">
+    <div class="home-buttons">
       <button onclick="loadFantasy('taxo')">FantaTaxo 25/26</button>
       <button onclick="loadFantasy('ralph')">Ralphcalcio 25/26</button>
     </div>

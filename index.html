@@ -33,13 +33,14 @@
   .traded { background: var(--trade-bg) !important; border-left: 3px solid var(--trade-border) !important; }
   #table { background: var(--card); border-radius:16px; overflow:hidden; border:1px solid #1a2447; margin-top: 12px; }
   .footer { opacity:.7; font-size:.85rem; padding:12px 0; }
+
+  /* Evidenziazione righe Prezzo 1-5 */
   .highlight-lowprice {
-    background: rgba(255, 215, 0, 0.35) !important; /* sfondo dorato evidente */
+    background: rgba(255, 215, 0, 0.35) !important;
     border-left: 5px solid gold !important;
     font-weight: bold;
-    color: #fff176 !important; /* testo giallo chiaro */
+    color: #fff176 !important;
   }
-
 </style>
 </head>
 <body>
@@ -116,14 +117,14 @@ async function loadExcelFVMp(path) {
 
   const headers = json[0].map(h => h.toString().trim().toLowerCase());
   const idxNome = headers.findIndex(h => h.includes("nome"));
-  const idxFvmp = headers.findIndex(h => h.includes("fvm/1000")); // 👈 uso la colonna giusta
+  const idxFvmp = headers.findIndex(h => h.includes("fvm/1000")); // robusto anche su Pages
 
   const map = {};
   for (let i = 1; i < json.length; i++) {
     const row = json[i];
     const nome = (row[idxNome] || "").toString().trim().toUpperCase();
     const fvmp1000 = Number(row[idxFvmp]) || 0;
-    map[nome] = Math.round(fvmp1000 / 2); // da /1000 a /500
+    if (nome) map[nome] = Math.round(fvmp1000 / 2); // da /1000 a /500
   }
   return map;
 }
@@ -198,8 +199,8 @@ async function loadFantasy(key) {
     columns: columns,
     rowFormatter: function(row){
       const d = row.getData();
-      // Evidenzia chi ha Prezzo 1–5 compreso
-      if (Number(d.Prezzo) >= 1 && Number(d.Prezzo) <= 5) {
+      const prezzo = parseInt(d.Prezzo, 10) || 0;
+      if (prezzo >= 1 && prezzo <= 5) {
         row.getElement().classList.add("highlight-lowprice");
       }
     }

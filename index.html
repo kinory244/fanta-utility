@@ -6,6 +6,7 @@
 <title>Gestione Fantacalcio 25/26</title>
 <link href="https://cdn.jsdelivr.net/npm/tabulator-tables@6.2.5/dist/css/tabulator.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
   :root {
     --bg: #0b1020;
@@ -33,10 +34,8 @@
   .legend-color { width:14px; height:14px; border-radius:4px; }
   .traded { background: var(--trade-bg) !important; border-left: 3px solid var(--trade-border) !important; }
   #table { background: var(--card); border-radius:16px; overflow:hidden; border:1px solid #1a2447; margin-top: 12px; }
-  .tabulator-row.reconfirm { background: var(--reconfirm-bg); border-left: 3px solid var(--reconfirm-border); }
   .footer { opacity:.7; font-size:.85rem; padding:12px 0; }
   .col-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
-  .col-toggle label { background: var(--card); border:1px solid #243058; padding:6px 10px; border-radius:10px; display:inline-flex; align-items:center; gap:6px; }
 </style>
 </head>
 <body>
@@ -59,17 +58,12 @@
   </section>
 
   <div id="legend">
-    <span class="legend-chip" id="legendReconfirm">
-      <span class="legend-color" style="background:var(--reconfirm-bg);border:2px solid var(--reconfirm-border);"></span> 
-      Riconfermabili
-    </span>
     <span class="legend-chip" id="legendTrade" style="display:none;">
       <span class="legend-color" style="background:var(--trade-bg);border:2px solid var(--trade-border);"></span> 
       Giocatori scambiati (diritto passa al nuovo proprietario)
     </span>
   </div>
 
-  <div class="col-toggle" id="colToggles"></div>
   <div id="table"></div>
   <p class="footer">Suggerimenti: clicca intestazioni per ordinare • Trascina colonne per riordinarle • Usa i toggle per mostrare/nascondere colonne.</p>
 </div>
@@ -108,50 +102,82 @@ async function loadCSV(path) {
   });
 }
 
+async function loadExcelFVMp(path) {
+  const response = await fetch(path);
+  const arrayBuffer = await response.arrayBuffer();
+  const workbook = XLSX.read(arrayBuffer, { type: "array" });
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+  const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+  const headers = json[0];
+  const idxNome = headers.findIndex(h => h.toLowerCase().includes("nome"));
+  const idxFvmp = headers.findIndex(h => h.toLowerCase().includes("fvmp"));
+
+  const map = {};
+  for (let i = 1; i < json.length; i++) {
+    const row = json[i];
+    const nome = (row[idxNome] || "").toString().trim().toUpperCase();
+    const fvmp1000 = Number(row[idxFvmp]) || 0;
+    map[nome] = Math.round(fvmp1000 / 2); // scala /500
+  }
+  return map;
+}
+
 const configs = {
   taxo: {
     name: "FantaTAXO 25/26",
     csv: "rose_fantataxo_astaagosto.csv",
-    threshold: 5,
-    intro: "Ogni squadra ha diritto max a 2 riconferme ≤5 crediti (no portieri)."
+    intro: "Ogni squadra ha diritto ad una riconferma secondo regolamento, da effettuarsi al valore FVMp. Si escludono portieri."
   },
   ralph: {
     name: "Ralphcalcio 25/26",
     csv: "rose_ralphcalcio_astaagosto.csv",
-    threshold: 10,
-    intro: "Ogni squadra ha diritto max a 2 riconferme ≤10 crediti (no portieri)."
+    intro: ""
   }
 };
 
 let table;
 let currentConfig;
+let fvmpMap = {};
 
 async function loadFantasy(key) {
   currentConfig = configs[key];
   document.getElementById("fantasyTitle").textContent = currentConfig.name;
   document.getElementById("introText").textContent = currentConfig.intro;
 
-  // Mostra/nascondi la legenda trade solo per Ralph
-  document.getElementById("legendTrade").style.display = (key === "ralph" ? "inline-flex" : "none");
-
   if (table) table.destroy();
   const data = await loadCSV(currentConfig.csv);
 
+  if (key === "taxo") {
+    fvmpMap = await loadExcelFVMp("lista_calciatori_svincolati_mantra_fantataxo.xlsx");
+  }
+
   const columns = [
-    { key:"Squadra", title: "Proprietario", field: "Squadra", widthGrow: 1 },
-    { key:"Nome", title: "Nome", field: "Nome", widthGrow: 2 },
-    { key:"Club", title: "Club", field: "Squadra_Appartenenza", widthGrow: 1 },
-    { key:"Ruolo", title: "Ruolo", field: "Ruolo", widthGrow: 1 },
-    { key:"Ruoli_Mantra", title: "Ruoli Mantra", field: "Ruoli_Mantra", widthGrow: 1.2 },
-    { key:"Prezzo", title: "Prezzo", field: "Prezzo", hozAlign:"right", widthGrow: 1, formatter:(cell)=>fmt0(cell.getValue()) },
-    { key:"Riconferma", title: "Riconferma (2×)", field: "Prezzo", hozAlign:"right", widthGrow: 1,
-      formatter:(cell)=>{ const d=cell.getRow().getData(); const v=Number(d.Prezzo); return (v<=currentConfig.threshold && d.Ruolo!=="P") ? fmt0(v*2) : "—"; } }
+    { title: "Proprietario", field: "Squadra", widthGrow: 1 },
+    { title: "Nome", field: "Nome", widthGrow: 2 },
+    { title: "Ruoli Mantra", field: "Ruoli_Mantra", widthGrow: 1.2 },
+    { title: "Prezzo", field: "Prezzo", hozAlign:"right", formatter:(c)=>fmt0(c.getValue()), widthGrow: 1 }
   ];
 
-  // 👇 Colonna extra solo per Ralph
+  if (key === "taxo") {
+    columns.push({
+      title: "FVMp",
+      field: "Nome",
+      hozAlign:"right",
+      widthGrow: 1,
+      formatter:(cell)=>{
+        const nome = (cell.getValue() || "").toUpperCase();
+        return fvmpMap[nome] ? fmt0(fvmpMap[nome]) : "—";
+      }
+    });
+  }
+
   if (key === "ralph") {
     columns.push({
-      key:"Trade", title: "Nuovo proprietario", field:"Nome", widthGrow:1,
+      title: "Nuovo proprietario",
+      field:"Nome",
+      widthGrow:1,
       formatter:(cell)=>{
         const trade = trades.find(t => t.Nome.toUpperCase() === cell.getValue().toUpperCase());
         return trade ? trade.newOwner : "—";
@@ -165,21 +191,10 @@ async function loadFantasy(key) {
     responsiveLayout: "collapse",
     movableColumns: true,
     height: "75vh",
-    columns: columns,
-    rowFormatter: function(row){
-      const d = row.getData();
-      const isReconfirm = Number(d.Prezzo) <= currentConfig.threshold && d.Ruolo !== "P";
-      if (isReconfirm) row.getElement().classList.add("reconfirm");
-
-      // 👇 Solo in Ralph: evidenzia scambiati
-      if (key === "ralph") {
-        const trade = trades.find(t => t.Nome.toUpperCase() === d.Nome.toUpperCase());
-        if (trade) row.getElement().classList.add("traded");
-      }
-    }
+    columns: columns
   });
 
-  // Filters
+  // Filtri
   const ownerFilter = document.getElementById("ownerFilter");
   const ruoloFilter = document.getElementById("ruoloFilter");
   const teamFilter = document.getElementById("teamFilter");

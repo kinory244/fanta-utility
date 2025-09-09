@@ -13,8 +13,6 @@
     --card: #121a33;
     --text: #e8ecff;
     --accent: #7aa2ff;
-    --reconfirm-bg: #0a3d2a33;
-    --reconfirm-border: #2bd48a;
     --trade-bg: #3d2a0a33;
     --trade-border: orange;
   }
@@ -35,7 +33,12 @@
   .traded { background: var(--trade-bg) !important; border-left: 3px solid var(--trade-border) !important; }
   #table { background: var(--card); border-radius:16px; overflow:hidden; border:1px solid #1a2447; margin-top: 12px; }
   .footer { opacity:.7; font-size:.85rem; padding:12px 0; }
-  .col-toggle { display:flex; gap:8px; flex-wrap:wrap; margin-top: 8px; }
+
+  /* Evidenziazione righe Prezzo 1-5 */
+  .highlight-lowprice {
+    background: rgba(255, 215, 0, 0.15) !important;
+    border-left: 3px solid gold !important;
+  }
 </style>
 </head>
 <body>
@@ -110,16 +113,16 @@ async function loadExcelFVMp(path) {
   const sheet = workbook.Sheets[sheetName];
   const json = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-  const headers = json[0];
-  const idxNome = headers.findIndex(h => h.toLowerCase().includes("nome"));
-  const idxFvmp = headers.findIndex(h => h.toLowerCase().includes("fvmp"));
+  const headers = json[0].map(h => h.toString().trim().toLowerCase());
+  const idxNome = headers.findIndex(h => h.includes("nome"));
+  const idxFvmp = headers.findIndex(h => h.includes("fvm/1000")); // 👈 uso la colonna giusta
 
   const map = {};
   for (let i = 1; i < json.length; i++) {
     const row = json[i];
     const nome = (row[idxNome] || "").toString().trim().toUpperCase();
     const fvmp1000 = Number(row[idxFvmp]) || 0;
-    map[nome] = Math.round(fvmp1000 / 2); // scala /500
+    map[nome] = Math.round(fvmp1000 / 2); // da /1000 a /500
   }
   return map;
 }
@@ -191,7 +194,14 @@ async function loadFantasy(key) {
     responsiveLayout: "collapse",
     movableColumns: true,
     height: "75vh",
-    columns: columns
+    columns: columns,
+    rowFormatter: function(row){
+      const d = row.getData();
+      // Evidenzia chi ha Prezzo 1–5 compreso
+      if (Number(d.Prezzo) >= 1 && Number(d.Prezzo) <= 5) {
+        row.getElement().classList.add("highlight-lowprice");
+      }
+    }
   });
 
   // Filtri
